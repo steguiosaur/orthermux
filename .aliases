@@ -1,0 +1,37 @@
+# File
+alias la="exa --icons --header -la"
+alias ll="exa --icons --header -l"
+alias tree="exa --tree --level=3"
+alias ls="exa --icons"
+#alias la="exa --icons -lgha --group-directories-first"
+alias lt="exa --icons --tree"
+alias lta="exa --icons --tree -lgha"
+alias bat="bat --theme OneHalfDark"
+#alias cat="bat --theme OneHalfDark -p $@"
+
+# Neovim
+alias nv="nvim"
+alias nvinit="nvim ~/.config/nvim/init.vim"
+
+# Sh files
+alias zshrc="nvim .zshrc"
+alias bashrc="nvim .bashrc"
+alias fishrc="nvim ~/.config/fish/config.fish"
+alias aliases="nvim ~/.aliases"
+
+#speedtest-go
+alias cgnl="speedtest-go"
+
+#asciinema
+alias reconf="nvim ~/.config/asciinema/config"
+alias record="asciinema rec"
+alias replay="asciinema play"
+
+#termux-reload
+alias reload="termux-reload-settings"
+
+#termux-setting
+alias termconf="nvim ~/.termux/termux.properties"
+
+#termux-permission
+alias termper="termux-setup-storage"
