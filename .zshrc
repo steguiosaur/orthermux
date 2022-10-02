@@ -32,14 +32,14 @@ export JAVA_HOME="$HOME/../usr/opt/openjdk"
 export PATH="$HOME/.local/bin"
 
 # RUSTC
-. "$HOME/.cargo/env"
+#. "$HOME/.cargo/env"
 
 # SOURCES
 source $ZSH/oh-my-zsh.sh
 source $HOME/.aliases
 source $HOME/.autostart
-source $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.termux/powerlevel10k/powerlevel10k.zsh-theme
+#source $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
