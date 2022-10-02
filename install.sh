@@ -63,17 +63,9 @@ function UPDATE_UPGRADE_PKG() {
 
 ###################### PACKAGE INSTALL FUNCTIONS ###################### 
 # PACKAGES (necessary)
-aptRequired=(
-    "wget"
-    "curl"
-)
-
 pkgRequired=(
-# repos
-    "root-repo"
-    "unstable-repo"
-    "x11-repo"
 # Priorities
+    "wget"
     "clangd"
     "python"
     "python2"
@@ -81,6 +73,7 @@ pkgRequired=(
     "fish"
     "zip"
     "unzip"
+    "lua"
     "php"
 # Editors and Tiling
     "tmux"
@@ -95,18 +88,11 @@ pkgRequired=(
 
 # Installs packages in $aptRequired && $pkgRequired if not installed.
 function forLoopPackages() {
-    for apts in "${aptRequired[@]}"; do
-        if [ ! -f "$PREFIX/bin/$apts" ]; then
-            apt install $apts -y
-        fi
-    done
-    TITLENAME
     for pkg_req in "${pkgRequired[@]}"; do
         if [ ! -f "$PREFIX/bin/$pkg_req" ]; then
             pkg install $pkg_req -y
         fi
     done
-    echo " "
 }
 
 # Installs required packages
@@ -123,6 +109,7 @@ function PACKAGEINSTALL() {
             Y | y )
                 TITLENAME
                 forLoopPackages
+                echo " "
                 anyKey
                 break;;
             N | n ) break;;
@@ -150,6 +137,9 @@ function dotfile_apply() {
     fi
     cp ./.bashrc ./.zshrc ./.aliases ./.autostart
     cp ./.local/bin ~/.local
+    if [ -f "$PREFIX/etc/motd" ]; then
+        rm $PREFIX/etc/motd
+    fi
 }
 
 function config_apply() {
