@@ -66,7 +66,7 @@ function UPDATE_UPGRADE_PKG() {
 pkgRequired=(
 # Priorities
     "wget"
-    "clangd"
+    "clang"
     "python"
     "python2"
     "zsh"
@@ -135,7 +135,7 @@ function dotfile_apply() {
     if [ -f "$PREFIX/bin/zsh" ]; then
         chsh -s /bin/zsh
     fi
-    cp ./.bashrc ./.zshrc ./.aliases ./.autostart
+    cp ./.bashrc ./.zshrc ./.aliases ./.autostart ~
     cp ./.local/bin ~/.local
     if [ -f "$PREFIX/etc/motd" ]; then
         rm $PREFIX/etc/motd
@@ -143,7 +143,7 @@ function dotfile_apply() {
 }
 
 function config_apply() {
-    cp ./.config ~
+    cp -r ./.config ~
     cp ./.gitconfig ~
     git clone https://github.com/steguiosaur/nvim ~/.config/nvim
     cp ./.tmux ./.tmux.conf ~
@@ -175,7 +175,7 @@ function applyDotfiles() {
         echo -e "Terminal: Tundra Modified"
         echo -e "Font: Terminus"
         echo -e "Shell: zsh\n"
-        read -r -p "Apply Termux configurations? [Y/N]" ans
+        read -r -p "Apply Termux configurations? [Y/N] " ans
         case $ans in
             Y | y )
                 TITLENAME
@@ -262,7 +262,7 @@ function APPLYCONFIG() {
                 TITLENAME
                 ohMyZsh
                 anyKey;;
-            A ) 
+            A | a ) 
                 doAll
                 anyKey;;
             Q | q ) break;;
