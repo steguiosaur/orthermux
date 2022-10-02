@@ -32,14 +32,17 @@ function TITLENAME() {
     echo -e "  ┃${c4}  █▀▀█ █▀▀█ ▀▀█▀▀ █  █ █▀▀▀ █▀▀█ █▀▄▀█ █  █ ▀▄ ▄▀  ${c0}┃"
     echo -e "  ┃${c4}  █  █ █▄▄▀   █   █▀▀█ █▀▀▀ █▄▄▀ █ █ █ █  █   █    ${c0}┃"
     echo -e "  ┃${c4}  █▄▄█ █  █   █   █  █ █▄▄▄ █  █ █   █ ▀▄▄▀ ▄▀ ▀▄  ${c0}┃"
-    echo -e "  ┃${c7}    Termux configuration: steguiosaur/orthermux.   ${c0}┃"
+    echo -e "  ┃${c7}    Termux configuration: steguiosaur/orthermux    ${c0}┃"
     echo -e "  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n"
 }
 
 # Pauses current menu.
 function anyKey() {
+    echo " "
     read -n 1 -r -s -p "Enter to continue. [*] " any
 }
+
+error=("${c5}ERROR${c0}:")
 
 ###################### UPDATE PACKAGES FUNCTIONS ###################### 
 # Confirm update and upgrade packages if not yet executed.
@@ -48,11 +51,9 @@ function UPDATE_UPGRADE_PKG() {
     while true; do
         read -r -p "Update and upgrade packages? [Y/N] " ans
         case $ans in
-            Y | y ) 
-                TITLENAME
+            Y | y ) TITLENAME
                 apt update -y && apt upgrade -y
                 pkg update -y && pkg upgrade -y;
-                echo " "
                 anyKey
                 break;;
             N | n ) break;;
@@ -63,53 +64,18 @@ function UPDATE_UPGRADE_PKG() {
 
 ###################### PACKAGE INSTALL FUNCTIONS ###################### 
 # PACKAGES (necessary)
-pkgRequired=(
-# Priorities
-    "wget"
-    "clang"
-    "python"
-    "python2"
-    "zsh"
-    "fish"
-    "zip"
-    "unzip"
-    "lua"
-    "php"
-# Editors and Tiling
-    "tmux"
-    "neovim"
-    "vim"
-    "nano"
-# Miscellaneous
-    "neofetch"
-    "exa"
-    "ctags"
-)
-
-# Installs packages in $aptRequired && $pkgRequired if not installed.
-function forLoopPackages() {
-    for pkg_req in "${pkgRequired[@]}"; do
-        if [ ! -f "$PREFIX/bin/$pkg_req" ]; then
-            pkg install $pkg_req -y
-        fi
-    done
-}
+packages=("python python2 wget clang zsh fish lua zip unzip vim neovim php tmux nano neofetch ctags exa")
 
 # Installs required packages
 function PACKAGEINSTALL() {
     TITLENAME
     while true; do
         echo -e "Packages to Install:\n"
-        for pkg_req in "${pkgRequired[@]}"; do
-            echo -e "• $pkg_req"
-        done
-        echo " "
+        echo -e "${c4}$packages\n\n${c0}" | tr " " "\n"
         read -r -p "Proceed? [Y/N] " ans
         case $ans in
-            Y | y )
-                TITLENAME
-                forLoopPackages
-                echo " "
+            Y | y ) TITLENAME
+                pkg install $pkg_req -y
                 anyKey
                 break;;
             N | n ) break;;
@@ -132,21 +98,17 @@ function apply_config_UI() {
 
 function dotfile_apply() {
     cp ./.termux $HOME 
-    if [ -f "$PREFIX/bin/zsh" ]; then
-        chsh -s /bin/zsh
-    fi
-    cp ./.bashrc ./.zshrc ./.aliases ./.autostart ~
-    cp ./.local/bin ~/.local
+    cp ./.bashrc ./.zshrc ./.aliases ./.autostart $HOME
+    cp -r ./.local/bin $HOME/.local
     if [ -f "$PREFIX/etc/motd" ]; then
         rm $PREFIX/etc/motd
     fi
 }
 
 function config_apply() {
-    cp -r ./.config ~
-    cp ./.gitconfig ~
-    git clone https://github.com/steguiosaur/nvim ~/.config/nvim
-    cp ./.tmux ./.tmux.conf ~
+    cp -r ./.config ./.tmux.conf $HOME
+    cp ./.tmux ./.gitconfig $HOME
+    git clone https://github.com/steguiosaur/nvim $HOME/.config/nvim
 }
 
 function powerlevel_install() {
@@ -156,6 +118,7 @@ function powerlevel_install() {
 
 function ohmyzsh_install() {
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    exit
 }
 
 function doAll() {
@@ -163,8 +126,6 @@ function doAll() {
     dotfile_apply
     TITLENAME
     config_apply
-    TITLENAME
-    powerlevel_install
     TITLENAME
     ohmyzsh_install
 }
@@ -177,10 +138,9 @@ function applyDotfiles() {
         echo -e "Shell: zsh\n"
         read -r -p "Apply Termux configurations? [Y/N] " ans
         case $ans in
-            Y | y )
-                TITLENAME
+            Y | y ) TITLENAME
                 dotfile_apply
-                echo -e "Done.\n"
+                echo -e "Done."
                 anyKey
                 break;;
             N | n ) break;;
@@ -195,10 +155,9 @@ function applyPkgConfig() {
         echo -e "• Neovim\n• Neofetch\n• Tmux"
         read -r -p "Apply configurations? [Y/N]" ans
         case $ans in
-            Y | y )
-                TITLENAME
+            Y | y ) TITLENAME
                 config_apply
-                echo -e "Done.\n"
+                echo -e "Done."
                 anyKey
                 break;;
             N | n ) break;;
@@ -212,10 +171,9 @@ function applyPrompt() {
         echo -e "Powerlevel 10k Installer.\n"
         read -r -p "Install? [Y/N]" ans
         case $ans in
-            Y | y )
-                TITLENAME
+            Y | y ) TITLENAME
                 powerlevel_install
-                echo -e "\nDone.\n"
+                echo -e "\nDone."
                 anyKey
                 break;;
             N | n ) break;;
@@ -229,10 +187,9 @@ function ohMyZsh() {
         echo -e "Oh-My-Zsh Installer.\n"
         read -r -p "Install? [Y/N]" ans
         case $ans in
-            Y | y )
-                TITLENAME
+            Y | y ) TITLENAME
                 ohmyzsh_install
-                echo -e "\nDone.\n"
+                echo -e "\nDone."
                 anyKey
                 break;;
             N | n ) break;;
@@ -246,24 +203,19 @@ function APPLYCONFIG() {
         apply_config_UI
         read -r -p "Input: " ans
         case $ans in
-            1 ) 
-                TITLENAME
+            1 ) TITLENAME
                 applyDotfiles
                 anyKey;;
-            2 ) 
-                TITLENAME
+            2 ) TITLENAME
                 applyPkgConfig
                 anyKey;;
-            3 ) 
-                TITLENAME
+            3 ) TITLENAME
                 applyPrompt
                 anyKey;;
-            4 ) 
-                TITLENAME
+            4 ) TITLENAME
                 ohMyZsh
                 anyKey;;
-            A | a ) 
-                doAll
+            A | a ) doAll
                 anyKey;;
             Q | q ) break;;
             * ) continue;;
@@ -275,20 +227,19 @@ function APPLYCONFIG() {
 # Installs jdk, gradle and others
 function JAVA_SETUP() {
     TITLENAME
-    echo -e "Java Development on Termux is under maintenance.\n"
+    echo -e "$error Java Development on Termux is under maintenance."
     anyKey
 }
 
 # LaTeX for Termux
 function LATEX_SETUP() {
     TITLENAME
-    echo -e "LaTeX configuration is under maintenance.\n"
+    echo -e "$error LaTeX configuration is under maintenance."
     anyKey
 }
 
 #rxfetch display after exit.
 function viewRxfetch() {
-    clear
     if [ -x "$(command -v rxfetch)" ]; then
         rxfetch
     fi
@@ -301,8 +252,8 @@ function DISPLAY_MAIN_MENU() {
     echo -e "${c6}[1]${c0} Install Required Packages"
     echo -e "${c6}[2]${c0} Apply Configurations"
     echo -e "\n${c7}--- Additional Setup${c0}"
-    echo -e "${c6}[3]${c0} Java Development Setup"
-    echo -e "${c6}[4]${c0} (-- unfixed) LaTeX setup"
+    echo -e "${c6}[3]${c0} $error Java Development Setup"
+    echo -e "${c6}[4]${c0} $error LaTeX setup"
     echo -e "\n${c6}[Q]${c0} Quit\n"
 }
 
@@ -322,6 +273,7 @@ function main() {
             * ) continue;;
         esac
     done
+    clear
     viewRxfetch
 }
 main
