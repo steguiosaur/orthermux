@@ -7,8 +7,7 @@ Termux dotfiles and configuration installer.
 ## Configurations
 
 - **TERMINAL** - Monokai *(modified background)*
-- **PROMPT** - Powerlevel10k
-- **SHELL** - zsh *(etc: bash, fish)*
+- **SHELL** - fish *(etc: bash, zsh)*
 - **FONT** - Terminus
 
 - **EDITOR: Neovim** - *(steguiosaur/nvim)*
