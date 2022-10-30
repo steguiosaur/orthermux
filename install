@@ -1,0 +1,72 @@
+#!/bin/bash
+packages=("python python2 wget curl clang zsh fish zip unzip vim neovim tmux nano neofetch ctags exa")
+
+function requiredPkg() {
+    pkg install $packages -y
+}
+
+function backUp() {
+    mv ~/.zshrc ~/.zshrc.bak
+    mv ~/.bashrc ~/.bashrc.bak
+    mv ~/.config/neofetch/config.conf ~/.config/neofetch/config.conf.bak
+    mv ~/.config/fish/config.fish ~/.config/fish/config.fish.bak
+}
+
+function pkgConf() {
+    cp -r .config/ ~/
+}
+
+function nvConf() {
+    git clone -b termux https://github.com/steguiosaur/nvim.git ~/.config/nvim
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+}
+
+function termConf() {
+    if [ -f "$PREFIX/etc/motd" ]; then
+        rm $PREFIX/etc/motd
+    fi
+    cp -r ./bin/ ~/.local/
+    cp ./.bashrc ~/
+    cp ./.zshrc ~/
+    cp ./.gitconfig ~/
+    chsh -s /bin/fish
+    cp -r ./.termux/ ~/
+}
+
+function UPDATE_UPGRADE_PKG() {
+    echo -e "Run \"apt update && apt upgrade\" before proceeding."
+    while true; do
+        read -r -p "Update and upgrade packages? [Y/N] " ans
+        case $ans in
+            Y | y )
+                apt update -y && apt upgrade -y
+                pkg update -y && pkg upgrade -y;
+                break;;
+            N | n ) break;;
+            * ) echo -e "\nAccepted values [Y/N/y/n]";;
+        esac
+    done
+}
+
+function DO_INSTALL() {
+    requiredPkg
+    backUp
+    pkgConf
+    nvConf
+    termConf
+}
+
+function main() {
+    UPDATE_UPGRADE_PKG
+    while true; do
+        read -r -p "Proceed Install? [Y/N] " ans
+        case $ans in
+            Y | y ) DO_INSTALL
+                break;;
+            N | n ) break;;
+            * ) echo -e "\nAccepted values [Y/N/y/n]";;
+        esac
+    done
+}
+main
