@@ -10,7 +10,7 @@ Termux dotfiles and configuration installer.
 - **SHELL** - fish *(etc: bash, zsh)*
 - **FONT** - Terminus
 
-- **EDITOR: Neovim** - *(steguiosaur/nvim)*
+- **EDITOR: Neovim** - config from [steguiosaur/nvim](https://github.com/steguiosaur/nvim.git)
 - **START PROMPT** - rxfetch
 
 ## Install
