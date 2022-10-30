@@ -1,17 +1,25 @@
-set -U fish_greeting ""
-clear
-rxfetch
-alias nv=nvim
-alias la="exa --icons --header -la"
-alias ll="exa --icons --header -l"
-alias tree="exa --tree --level=3"
 
-export ANDROID_SDK_ROOT="$HOME/Android/sdk"
+########### ALIASES
+source ~/.config/sources/aliases
+alias arch="proot-distro login --isolated --user steve archlinux"
+
+########### EXPORTS
+# TERMINAL DEFAULTS
+export EDITOR=nvim
+export HISTCONTROL=ignoreboth
+export TERM=xterm-256color
+
+export PATH="$PATH:$HOME/.local/bin"
+
+# GITHUB
+export LINK="https://github.com/steguiosaur"
+export LINK_SSH="git@github.com:steguiosaur"
+
+# JDK JAVA
+export ANDROID_SDK_ROOT="~/Android/sdk"
 export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
-export JAVA_HOME=/data/data/com.termux/files/usr/opt/openjdk
+export JAVA_HOME="$PREFIX/opt/openjdk"
+export PATH="$PATH:$ANDROID_SDK_ROOT/build-tools/30.0.3"
 
-# export PATH=/data/data/com.termux/files/usr/share/texlive/bin/aarch64-linux:$PATH
-# export MANPATH=/data/data/com.termux/files/usr/share/texlive/texmf-dist/doc/man:$MANPATH
-# export INFOPATH=/data/data/com.termux/files/usr/share/texlive/texmf-dist/doc/info:$INFOPATH
-
-# Logfile: /data/data/com.termux/files/usr/share/texlive/install-tl.log
+########### AUTOSTART
+source ~/.config/sources/autostart

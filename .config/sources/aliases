@@ -2,12 +2,15 @@
 alias la="exa --icons --header -la"
 alias ll="exa --icons --header -l"
 alias tree="exa --tree --level=3"
-alias ls="exa --icons"
+alias l="exa --icons"
 #alias la="exa --icons -lgha --group-directories-first"
 alias lt="exa --icons --tree"
 alias lta="exa --icons --tree -lgha"
 alias bat="bat --theme OneHalfDark"
 #alias cat="bat --theme OneHalfDark -p $@"
+alias paths="echo $PATH | tr \" \" \"\n\""
+alias grep='grep --color=auto'
+alias histogrep='history | grep'
 
 # Neovim
 alias nv="nvim"
@@ -20,7 +23,7 @@ alias fishrc="nvim ~/.config/fish/config.fish"
 alias aliases="nvim ~/.aliases"
 
 #speedtest-go
-alias cgnl="speedtest-go"
+alias speedtest="speedtest-go"
 
 #asciinema
 alias reconf="nvim ~/.config/asciinema/config"
@@ -31,7 +34,7 @@ alias replay="asciinema play"
 alias reload="termux-reload-settings"
 
 #termux-setting
-alias termconf="nvim ~/.termux/termux.properties"
+alias term-conf="nvim ~/.termux/termux.properties"
 
 #termux-permission
-alias termper="termux-setup-storage"
+alias set-storage="termux-setup-storage"

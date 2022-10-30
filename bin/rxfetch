@@ -25,6 +25,10 @@ c8=${black}
 c9=${bgyellow}
 c10=${bgwhite}
 
+function showDate() {
+    date="$(date)"
+}
+
 function getCodeName() {
   codename="$(getprop ro.product.board)"
 }
@@ -93,6 +97,7 @@ function getDiskUsage() {
 }
 
 function main() {
+  showDate
   getCodeName
   getClientBase
   getModel
@@ -109,7 +114,7 @@ main
 
 echo -e "\n"
 echo -e "  ┏━━━━━━━━━━━━━━━━━━━━━━┓"
-echo -e "  ┃ ${c1}r${c2}x${c7}f${c4}e${c5}t${c6}${c7}c${c1}h${c0}      ${c5}${c0}  ${c6}${c0}  ${c7}${c0} ┃  ${codename}${c5}@${c0}${client_base}"
+echo -e "  ┃ ${c1}r${c2}x${c7}f${c4}e${c5}t${c6}${c7}c${c1}h${c0}      ${c5}${c0}  ${c6}${c0}  ${c7}${c0} ┃  𝖘𝖙𝖊𝖌𝖚𝖎𝖔𝖘𝖆𝖚𝖗 | ${date}"
 echo -e "  ┣━━━━━━━━━━━━━━━━━━━━━━┫"
 echo -e "  ┃                      ┃  ${c1}phone${c0}  ${model}"
 echo -e "  ┃          ${c3}•${c8}_${c3}•${c0}         ┃  ${c2}os${c0}     ${os}"
@@ -117,7 +122,7 @@ echo -e "  ┃          ${c8}${c0}${c9}oo${c0}${c8}|${c0}         ┃  ${c7}ker$
 echo -e "  ┃         ${c8}/${c0}${c10} ${c0}${c8}'\'${c0}        ┃  ${c4}pkgs${c0}   ${packages}"
 echo -e "  ┃        ${c9}(${c0}${c8}\_;/${c0}${c9})${c0}        ┃  ${c5}sh${c0}     ${shell}"
 echo -e "  ┃                      ┃  ${c6}up${c0}    ${uptime}"
-echo -e "  ┃   ANDROID ${c1}•${c0} TERMUX   ┃  ${c1}ram${c0}    ${memory}"
+echo -e "  ┃   ANDROID ${c1}ﲅ${c0} TERMUX   ┃  ${c1}ram${c0}    ${memory}"
 echo -e "  ┃                      ┃  ${c2}disk${c0}   ${storage}"
 echo -e "  ┗━━━━━━━━━━━━━━━━━━━━━━┛  ${c1}━━━${c2}━━━${c3}━━━${c4}━━━${c5}━━━${c6}━━━${c7}━━━"
 echo -e "\n"
