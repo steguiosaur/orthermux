@@ -2,7 +2,7 @@
 packages=("root-repo x11-repo python python2 wget curl clang zsh fish zip unzip vim neovim tmux nano neofetch ctags exa")
 
 function requiredPkg() {
-    apt install $packages -y
+    pkg install $packages -y
 }
 
 function backUp() {
