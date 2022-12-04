@@ -1,4 +1,4 @@
-# ORTHERMUX
+# Termux-Dotfiles
 
 Termux dotfiles and configuration installer.
 
