@@ -18,8 +18,8 @@ Termux dotfiles and configuration installer.
 Do `pkg install -y git` if git is not installed.
 
 ```terminal
-git clone https://github.com/steguiosaur/orthermux.git
-cd orthermux
+git clone https://github.com/steguiosaur/termux-dotfiles.git
+cd termux-dotfiles/
 ./install
 ```
 
