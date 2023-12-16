@@ -1,72 +1,59 @@
 #!/bin/bash
-packages=("root-repo x11-repo python python2 wget curl clang zsh fish zip unzip vim neovim tmux nano neofetch ctags exa")
+packages=("root-repo x11-repo python python2 wget curl clang zsh fish zip unzip vim neovim tmux nano ctags exa")
 
-function requiredPkg() {
-    pkg install $packages -y
-}
-
-function backUp() {
-    mv ~/.zshrc ~/.zshrc.bak
-    mv ~/.bashrc ~/.bashrc.bak
-    mv ~/.config/neofetch/config.conf ~/.config/neofetch/config.conf.bak
-    mv ~/.config/fish/config.fish ~/.config/fish/config.fish.bak
-}
-
-function pkgConf() {
-    cp -r .config/ ~/
-}
-
-function nvConf() {
-    git clone -b termux https://github.com/steguiosaur/nvim.git ~/.config/nvim
-    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-}
-
-function termConf() {
-    if [ -f "$PREFIX/etc/motd" ]; then
-        rm $PREFIX/etc/motd
-    fi
-    cp -r ./bin/ ~/.local/
-    cp ./.bashrc ~/
-    cp ./.zshrc ~/
-    cp ./.gitconfig ~/
-    chsh -s /bin/fish
-    cp -r ./.termux/ ~/
-}
-
-function UPDATE_UPGRADE_PKG() {
-    echo -e "Run \"apt update && apt upgrade\" before proceeding."
+function updateUpgradePackages() {
     while true; do
-        read -r -p "Update and upgrade packages? [Y/N] " ans
+        read -r -p "[termux-dotfiles] update and upgrade packages? [Y/N] " ans
         case $ans in
             Y | y )
-                apt update -y && apt upgrade -y
                 pkg update -y && pkg upgrade -y;
                 break;;
             N | n ) break;;
-            * ) echo -e "\nAccepted values [Y/N/y/n]";;
+            * ) echo -e "\n[error] accepted values [Y/N/y/n]";;
         esac
     done
 }
 
-function DO_INSTALL() {
-    requiredPkg
-    backUp
-    pkgConf
-    nvConf
-    termConf
+function doPkgAndConfInstall() {
+    # install required packages
+    pkg install $packages -y
+
+    # create backups for changes
+    mv $HOME/.zshrc $HOME/.zshrc.bak
+    mv $HOME/.bashrc $HOME/.bashrc.bak
+    mv $HOME/.gitconfig $HOME/.gitconfig.bak
+    mv $HOME/.config/fish/config.fish $HOME/.config/fish/config.fish.bak
+    mv $HOME/.config/tmux/tmux.conf $HOME/.config/tmux/tmux.conf.bak
+
+    # copy termux-dotfiles to config files
+    cp -r ./asciinema/ ./fish/ ./tmux/ $HOME/.config/
+
+    # remove termux default prompt
+    if [ -f "$PREFIX/etc/motd" ]; then
+        rm $PREFIX/etc/motd
+    fi
+
+    # copy other configs to $HOME
+    cp bashrc $HOME/.bashrc
+    cp zshrc $HOME/.zshrc
+    cp gitconfig $HOME/.gitconfig
+    cp -r termux/ $HOME/.termux
+
+    # set sh default to fish
+    chsh -s /bin/fish
 }
 
 function main() {
-    UPDATE_UPGRADE_PKG
+    updateUpgradePackages
     while true; do
-        read -r -p "Proceed Install? [Y/N] " ans
+        read -r -p "[termux-dotfiles] proceed install? [Y/N] " ans
         case $ans in
-            Y | y ) DO_INSTALL
+            Y | y ) doPkgAndConfInstall
                 break;;
             N | n ) break;;
-            * ) echo -e "\nAccepted values [Y/N/y/n]";;
+            * ) echo -e "\n[error] accepted values [Y/N/y/n]";;
         esac
     done
 }
+
 main

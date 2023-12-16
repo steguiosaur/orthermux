@@ -3,3 +3,7 @@
 	name = steguiosaur
 [core]
 	editor = nvim
+[init]
+	defaultBranch = main
+[color]
+	ui = auto
