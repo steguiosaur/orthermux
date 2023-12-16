@@ -37,7 +37,7 @@ function doPkgAndConfInstall() {
     cp bashrc $HOME/.bashrc
     cp zshrc $HOME/.zshrc
     cp gitconfig $HOME/.gitconfig
-    cp -r termux/ $HOME/.termux
+    cp ./termux/termux.properties ./termux/font.ttf ./termux/colors.properties $HOME/.termux
 
     # set sh default to fish
     chsh -s /bin/fish
