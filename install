@@ -37,10 +37,11 @@ function doPkgAndConfInstall() {
     cp bashrc $HOME/.bashrc
     cp zshrc $HOME/.zshrc
     cp gitconfig $HOME/.gitconfig
-    cp ./termux/termux.properties ./termux/font.ttf ./termux/colors.properties $HOME/.termux
+    cp ./termux/* $HOME/.termux
+    cp gdbinit $HOME/.gdbinit
 
     # set sh default to fish
-    chsh -s /bin/fish
+    chsh -s fish
 }
 
 function main() {
