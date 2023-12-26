@@ -1,5 +1,31 @@
 #!/bin/bash
-packages=("root-repo x11-repo python python2 wget curl clang zsh fish zip unzip vim neovim tmux nano ctags exa")
+packages=("
+    root-repo
+    x11-repo 
+    python
+    python2
+    wget 
+    curl
+    clang
+    zsh
+    fish
+    zip
+    unzip
+    vim
+    neovim  
+    tmux
+    nano
+    ctags
+    exa
+    htop
+    gdb
+    gdbserver
+    cmake
+    make
+    valgrind
+    nodejs
+    gradle
+")
 
 function updateUpgradePackages() {
     while true; do
@@ -26,6 +52,7 @@ function doPkgAndConfInstall() {
     mv $HOME/.config/tmux/tmux.conf $HOME/.config/tmux/tmux.conf.bak
 
     # copy termux-dotfiles to config files
+    mkdir $HOME/.config/
     cp -r ./asciinema/ ./fish/ ./tmux/ $HOME/.config/
 
     # remove termux default prompt
