@@ -1,6 +1,4 @@
 ########### ALIASES
-source ~/.config/sources/aliases
-
 # File
 alias la="exa --icons --header --group-directories-first -a"
 alias lla="exa --icons --header --group-directories-first -la"
