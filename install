@@ -25,6 +25,12 @@ packages=("
     valgrind
     nodejs
     gradle
+    ccache
+    rust
+    manpages
+    glow
+    ripgrep
+    fzf
 ")
 
 function updateUpgradePackages() {
@@ -47,6 +53,7 @@ function doPkgAndConfInstall() {
     # create backups for changes
     mv $HOME/.zshrc $HOME/.zshrc.bak
     mv $HOME/.bashrc $HOME/.bashrc.bak
+    mv $HOME/.vimrc $HOME/.vimrc.bak
     mv $HOME/.gitconfig $HOME/.gitconfig.bak
     mv $HOME/.config/fish/config.fish $HOME/.config/fish/config.fish.bak
     mv $HOME/.config/tmux/tmux.conf $HOME/.config/tmux/tmux.conf.bak
@@ -63,6 +70,7 @@ function doPkgAndConfInstall() {
     # copy other configs to $HOME
     cp bashrc $HOME/.bashrc
     cp zshrc $HOME/.zshrc
+    cp vimrc $HOME/.vimrc
     cp gitconfig $HOME/.gitconfig
     cp ./termux/* $HOME/.termux
     cp gdbinit $HOME/.gdbinit

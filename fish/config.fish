@@ -84,7 +84,7 @@ export TEXMFLOCAL="$PREFIX/share/texlive/texmf-local"
 export OSFONTDIR="$PREFIX/share/fonts/TTF"
 export TRFONTS="$PREFIX/share/groff/{current/font,site-font}/devps"
 
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$PREFIX/lib"
+export LD_LIBRARY_PATH="$PREFIX/lib"
 
 # RUST
 export PATH="$PATH:$HOME/.cargo/bin"
