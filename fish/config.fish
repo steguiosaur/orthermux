@@ -44,18 +44,11 @@ alias term-conf="nvim ~/.termux/termux.properties"
 
 #termux-permission
 alias set-storage="termux-setup-storage"
-#alias arch="proot-distro login --isolated --user steve archlinux"
 
-########### EXPORTS
-# TERMINAL DEFAULTS
-export EDITOR=nvim
-export HISTCONTROL=ignoreboth
-export TERM=xterm-256color
-export DIFFPROG='nvim -d'
 
-export PATH="$PATH:$HOME/.local/bin"
+alias arch="proot-distro login --isolated --user steve archlinux"
+alias archsh="proot-distro login --shared-tmp --user steve archlinux"
 
-# MANPAGES
 set -x LESS_TERMCAP_mb (printf "\e[1;32m")
 set -x LESS_TERMCAP_md (printf "\e[1;32m")
 set -x LESS_TERMCAP_me (printf "\e[0m")
@@ -67,24 +60,33 @@ set -x GROFF_NO_SGR 1
 
 set -x MANPAGER 'less -s -M +Gg'
 
+########### EXPORTS
+# TERMINAL DEFAULTS
+export EDITOR=nvim
+export HISTCONTROL=ignoreboth
+export TERM=xterm-256color
+export DIFFPROG='nvim -d'
+
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
+
+#export MANPATH="$PREFIX/share/man/"
 # GITHUB
 export LINK="https://github.com/steguiosaur"
 export LINK_SSH="git@github.com:steguiosaur"
 
-# JAVA (JDK/Android SDK)
-#export ANDROID_SDK_ROOT="~/Android/sdk"
-#export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
-export JAVA_HOME="$PREFIX/opt/openjdk"
+# JDK JAVA
+export ANDROID_SDK_ROOT="~/Android/sdk"
+export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
+export JAVA_HOME="$PREFIX/lib/jvm/java-17-openjdk"
 #export PATH="$PATH:$ANDROID_SDK_ROOT/build-tools/30.0.3"
 
-# LATEX (fish config)
-export PATH="$PATH:$PREFIX/bin/texlive"
-export TEXMFROOT="$PREFIX/share/texlive"
-export TEXMFLOCAL="$PREFIX/share/texlive/texmf-local"
+## New TexLive
+#source $PREFIX/etc/profile.d/texlive.sh
 export OSFONTDIR="$PREFIX/share/fonts/TTF"
-export TRFONTS="$PREFIX/share/groff/{current/font,site-font}/devps"
+export PATH="$PATH:$PREFIX/bin/texlive2024"
+export TEXMFROOT="$PREFIX/share/texlive/2024"
+export TEXMFLOCAL="$PREFIX/share/texlive/texmf-local"
 
 export LD_LIBRARY_PATH="$PREFIX/lib"
 
-# RUST
-export PATH="$PATH:$HOME/.cargo/bin"
