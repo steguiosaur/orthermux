@@ -29,11 +29,10 @@ set scrolloff=5 " lines above and below cursor
 set mouse=a " mouse support
 
 set laststatus=2 " last window statusline enable
-set noshowmode " show current mode
 set showtabline=1 " shows tabline
 set signcolumn=yes " shows signcolumn
 set modeline " file specific options on comments
-set clipboard=unnamedplus " connect to system clipboard
+set clipboard^=unnamed
 set confirm " confirm on exit
 
 set wildmenu " command completion on <Tab>
@@ -127,3 +126,6 @@ nnoremap<silent> <esc><esc> :noh<return>
 nnoremap <G-g> g<C-g>
 " file explorer
 nmap<silent> <leader>e :Explore<cr>
+
+syntax on
+filetype on
